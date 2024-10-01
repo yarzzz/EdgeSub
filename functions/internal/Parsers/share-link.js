@@ -49,15 +49,16 @@ export class ShareLinkParser {
         return HY;
     }
     hysteria2 (HY2URL) {
-        const URIObject = new URL (HY2URL);
+        // const URIObject = new URL (HY2URL);
+        const URIObject = parseUrl(HY2URL);
 
         const HY2 = {
             __Type: "hysteria2",
-            __Remark: decodeURIComponent(URIObject.hash.replace(/^#/, "")) || URIObject.host,
+            __Remark: URIObject.host,
             Auth: URIObject.username,
             Hostname: URIObject.hostname,
-            Port: parseInt(URIObject.port),
-            Query: __searchParamsMapper(URIObject.searchParams)
+            Port: URIObject.port,
+            Query: URIObject.searchParams
         }
         return HY2;
     }
@@ -199,4 +200,37 @@ function __searchParamsMapper (searchParams) {
         Query[key] = value
     }
     return Query;
+}
+
+function parseUrl(url) {
+    const urlPattern = /^(?:(?<scheme>[a-zA-Z0-9+.-]+):\/\/)?(?:(?<username>[^:@]+)(?::(?<password>[^@]*))?@)?(?<hostname>[^:/?#]+)(?::(?<port>[\d-,]+))?(?<path>\/[^?#]*)?(?:\?(?<searchParams>[^#]*))?(?:#(?<fragment>.*))?$/;
+    const match = url.match(urlPattern);
+    if (match) {
+        const hostname = match.groups.hostname || null;
+        const port = match.groups.port ? `:${match.groups.port}` : ''; // 如果有端口，则加上冒号和端口号
+        const host = hostname + port; // 组合成 host
+
+        // 解析 searchParams 为一个对象
+        const searchParams = {};
+        if (match.groups.searchParams) {
+            match.groups.searchParams.split('&').forEach(param => {
+                const [key, value] = param.split('=');
+                searchParams[decodeURIComponent(key)] = value ? decodeURIComponent(value) : null; // 解码并处理值
+            });
+        }
+
+        return {
+            scheme: match.groups.scheme || null,
+            username: match.groups.username || null,
+            password: match.groups.password || null,
+            hostname: hostname,
+            port: match.groups.port || null,
+            host: host, // host 是 hostname:port 的形式
+            path: match.groups.path || null,
+            searchParams: searchParams,
+            fragment: match.groups.fragment || null
+        };
+    } else {
+        return null; // 如果没有匹配，返回 null
+    }
 }
