@@ -55,7 +55,7 @@ export class ClashMetaParser {
             __Type: "hysteria2",
             __Remark: Obj.name,
             Hostname: Obj.server,
-            Port: Obj.port,
+            Ports: Obj.ports,
             Auth: Obj.auth || Obj.password,
             Query: {
                 objs: Obj.obfs,
