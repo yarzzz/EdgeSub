@@ -68,7 +68,7 @@ export default class Dumper {
             name: hy2Object.__Remark,
             type: hy2Object.__Type,
             server: hy2Object.Hostname,
-            port: hy2Object.Port,
+            port: hy2Object.Ports,
             ports: hy2Object.Query.mport,
             password: hy2Object.Auth,
             auth: hy2Object.Auth,
