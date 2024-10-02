@@ -57,7 +57,7 @@ export class ShareLinkParser {
             __Remark: URIObject.fragment || URIObject.host,
             Auth: URIObject.username,
             Hostname: URIObject.hostname,
-            Port: URIObject.port,
+            Ports: URIObject.port,
             Query: URIObject.searchParams
         }
         return HY2;
