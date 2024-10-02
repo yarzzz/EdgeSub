@@ -22,7 +22,7 @@ export class ShareLinkDumper {
         return `hysteria://${Obj.Hostname}:${Obj.Port}/${URLQueryWrapper(Obj.Query)}#${encodeURIComponent(Obj.__Remark)}`
     }
     hysteria2 (Obj) {
-        return `hysteria2://${Obj.Auth}@${Obj.Hostname}:${Obj.Port}/?${URLQueryWrapper(Obj.Query)}#${encodeURIComponent(Obj.__Remark)}`
+        return `hysteria2://${Obj.Auth}@${Obj.Hostname}:${Obj.Ports}/?${URLQueryWrapper(Obj.Query)}#${encodeURIComponent(Obj.__Remark)}`
     }
     hy2 = this.hysteria2;
 
