@@ -93,7 +93,7 @@ export default class Dumper {
             tag: hy2Object.__Remark,
           
             server: hy2Object.Hostname,
-            server_port: hy2Object.Port,
+            server_port: hy2Object.Ports,
 
             // sing-box doesnt have port hopping
             // ports: hy2Object.Query.mport,
